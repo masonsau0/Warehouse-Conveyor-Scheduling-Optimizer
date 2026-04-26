@@ -83,6 +83,55 @@ def gantt_figure(schedule, color_by: str = "grade") -> plt.Figure:
 st.title("Warehouse Conveyor Scheduler")
 st.caption("Tote sequencing across a multi-lane conveyor under release-time and processing-time constraints. Compare FIFO, EFT, SPT, LPT, and WSPT dispatching.")
 
+with st.expander("How to use this app", expanded=False):
+    st.markdown("""
+**What this app does in plain English.**
+A warehouse has a conveyor belt with multiple parallel lanes (think of
+the conveyor at airport security with 4 trays moving at once). Boxes
+("totes") arrive at different times, take different amounts of time to
+process, and have different priorities. The question: in what order
+should we send them down the lanes to finish all the work the fastest?
+This app implements **5 different scheduling rules** from operations
+research and shows you which one wins on the same workload.
+
+**Quick start (60 seconds).**
+1. Look at the **Totes** table — each row is a box. You can edit any
+   value or add/delete rows.
+2. Set the **Number of lanes** in the sidebar (default 4).
+3. Click any of the **5 scheduling buttons** — FIFO, EFT, SPT, LPT,
+   WSPT — to see how each rule schedules the same totes.
+4. Compare the **Gantt chart** and the **makespan / weighted flow
+   time** numbers each rule produces.
+
+**The 5 scheduling rules in plain English.**
+- **FIFO (First-In-First-Out)** — schedule totes in the order they
+  arrive. Fair, simple, often slow.
+- **EFT (Earliest Finish Time)** — schedule whichever tote finishes
+  first if started now. Greedy, low makespan.
+- **SPT (Shortest Processing Time)** — do the quickest jobs first.
+  Minimises average wait time. Bad if a high-priority tote is long.
+- **LPT (Longest Processing Time)** — do the slow jobs first. Helps
+  balance lanes when totes are very different sizes.
+- **WSPT (Weighted Shortest Processing Time / Smith's rule)** — each
+  tote has a priority weight; schedule by weight ÷ processing-time.
+  Provably optimal for weighted average wait time on one machine.
+
+**The columns in the Totes table.**
+- **Release time** — earliest time this tote can enter the system.
+- **Processing time** — how long this tote takes once it's on a lane.
+- **Weight (priority)** — higher = more important. Used by WSPT.
+
+**What the numbers mean.**
+- **Makespan** — total time from start to when the LAST tote finishes.
+  Lower = better.
+- **Weighted flow time** — sum of (priority × completion time) across
+  all totes. Lower = better. WSPT minimises this.
+
+**Try this.** Run all 5 rules on the default workload. WSPT typically
+wins on weighted flow time; SPT or EFT often wins on makespan. The
+"best" rule depends on what you care about.
+""")
+
 if "tote_df" not in st.session_state:
     df, n_lanes = load_default()
     st.session_state["tote_df"] = df
