@@ -1,6 +1,6 @@
 # Warehouse Conveyor Scheduling Optimizer
 
-**[Live demo](https://warehouse-conveyor-scheduling-optimizer.streamlit.app)** — runs in your browser, no install required.
+**[Live demo](https://mason-warehouse-conveyor-scheduling.streamlit.app/)** — runs in your browser, no install required.
 
 A parallel-machine scheduling system for **tote sequencing across a multi-lane
 warehouse conveyor**. Implements five classical dispatching rules from
