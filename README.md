@@ -1,10 +1,10 @@
 # Warehouse Conveyor Scheduling Optimizer
 
-**[Live demo](https://mason-warehouse-conveyor-scheduling.streamlit.app/)** — runs in your browser, no install required.
+**[Live demo](https://mason-warehouse-conveyor-scheduling.streamlit.app/)** : runs in the browser, no install required.
 
 A parallel-machine scheduling system for **tote sequencing across a multi-lane
 warehouse conveyor**. Implements five classical dispatching rules from
-scheduling theory — **FIFO**, **EFT**, **SPT**, **LPT**, **WSPT** — and
+scheduling theory (**FIFO**, **EFT**, **SPT**, **LPT**, **WSPT**) and
 benchmarks them on a congested-rush-hour workload of 80 totes against
 4 lanes. The same library powers a Jupyter walkthrough and an interactive
 Streamlit dashboard with editable tote tables and a live Gantt chart.
@@ -19,8 +19,8 @@ Each tote arriving at the dispatch point has:
 |---|---|
 | `release_time_s` | When the tote becomes available for processing |
 | `processing_time_s` | How long any lane takes to handle it |
-| `priority` (1 – 3) | Operational urgency — used by WSPT |
-| `grade` | Standard / Express / Fragile — display category |
+| `priority` (1 – 3) | Operational urgency : used by WSPT |
+| `grade` | Standard / Express / Fragile : display category |
 
 When a lane frees up, the dispatcher must choose **which waiting tote it
 takes next**. Different rules optimise different objectives.
@@ -48,7 +48,7 @@ takes next**. Different rules optimise different objectives.
 | Priority distribution | 60 % p=1, 30 % p=2, 10 % p=3 |
 | Grade distribution | 65 % Standard, 25 % Express, 10 % Fragile |
 
-Total work ≈ 4,500 s — meaningfully more than the 1,500 s arrival window,
+Total work ≈ 4,500 s : meaningfully more than the 1,500 s arrival window,
 so the lanes queue and dispatching choices actually matter.
 
 ## Results on the bundled workload
@@ -65,7 +65,7 @@ so the lanes queue and dispatching choices actually matter.
 
 - **WSPT** delivers the lowest makespan by exercising the priority lever.
 - **SPT** and **EFT** tie for lowest mean flow time.
-- **LPT** is *worst* on flow time — long jobs hog lanes early — but the
+- **LPT** is *worst* on flow time (long jobs hog lanes early), but the
   textbook recommendation when only makespan matters and releases are
   non-zero.
 - **SPT** also delivers the most balanced lane utilisation.
@@ -102,15 +102,15 @@ streamlit run conveyor_scheduling_app.py
 
 The dashboard:
 
-- **Editable tote table** — change release times, processing times,
+- **Editable tote table** : change release times, processing times,
   priorities, grades; add or delete rows. The Gantt re-renders on every
   edit.
-- **Lane count slider** — set 1 – 12 lanes and see how throughput scales.
-- **Rule selector** — switch between FIFO / EFT / SPT / LPT / WSPT and
+- **Lane count slider** : set 1 – 12 lanes and see how throughput scales.
+- **Rule selector** : switch between FIFO / EFT / SPT / LPT / WSPT and
   watch the schedule rearrange.
-- **Side-by-side Gantt** — every rule rendered in one stack so the
+- **Side-by-side Gantt** : every rule rendered in one stack so the
   trade-offs are visible at a glance.
-- **Per-tote schedule download** — export the chosen rule's full schedule
+- **Per-tote schedule download** : export the chosen rule's full schedule
   as CSV.
 
 ### Programmatic use
